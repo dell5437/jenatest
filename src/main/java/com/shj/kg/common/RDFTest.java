@@ -6,9 +6,10 @@ import org.apache.jena.util.FileManager;
 import org.apache.jena.vocabulary.VCARD;
 
 import java.io.*;
-import java.lang.reflect.Field;
 
 public class RDFTest {
+
+    public static String john= "http://somewhere/JohnSmith";
 
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -94,16 +95,10 @@ public class RDFTest {
     }
 
     public static void navigating() throws FileNotFoundException {
-        String john= "http://somewhere/JohnSmith";
-        String inputFile="E:\\Project\\jena\\src\\main\\resources\\xml\\test.xml";
-        Model model=ModelFactory.createDefaultModel();
-        InputStream inputStream= FileManager.get().open(inputFile);
 
-        if (inputStream == null) {
-            throw new IllegalArgumentException( "File: " + inputFile + " not found");
-        }
+
         // 读取RDF/XML文件
-        model.read(new InputStreamReader(inputStream),"");
+        Model model=getModel();
 
         // retrieve the Adam Smith vcard resource from the model
         // 从资源中取出john的名片
@@ -127,13 +122,13 @@ public class RDFTest {
             System.out.println("nick name: "+iterator.nextStatement().toString());
         }
 
-        OutputStream outputStream=new FileOutputStream(new File("E:\\Project\\jena\\src\\main\\resources\\xml\\out.xml"));
+        OutputStream outputStream=new FileOutputStream(new File("E:\\jenatest\\src\\main\\resources\\xml\\out.xml"));
         model.write(outputStream);
 
     }
     public static Model getModel(){
         //        String john= "http://somewhere/JohnSmith";
-        String inputFile="E:\\Project\\jena\\src\\main\\resources\\xml\\test.xml";
+        String inputFile="E:\\jenatest\\src\\main\\resources\\xml\\test.xml";
         Model model=ModelFactory.createDefaultModel();
         InputStream inputStream= FileManager.get().open(inputFile);
 
